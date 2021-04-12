@@ -1,24 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-'''
-Last update: 21.03.05. by KS.Kwon
-
-[21.03.05.]
-- Input data
-    - Protein:  PDB_extract_v3 (distance matrix)
-
-- Model structure
-    - Graph layer:                  GCN
-        - Protein layer:            2
-    - Dropout:                      No
-        - Keep probs:               0.5
-    - Loss function:                RMSE
-    - L2 regularization:            No
-    - hidden feature:               300, 200
-    - Encoder activation:           LeakyReLU
-    - Reconstruction activation:    lambda x:x
-'''
-
 import os
 import time
 import numpy as np
@@ -114,11 +93,6 @@ def train_GAE(f_config, transfer='Autoencoder'):
             # Weight update
             grads = tape.gradient(tr_loss, model.trainable_variables)
             optimizer.apply_gradients(zip(grads, model.trainable_variables))
-
-            # Metric 
-            #tr_avg_loss += tr_loss
-            #tr_scores_list.extend(tr_class_score)
-            #tr_labels_list.extend(tr_labels)
 
         # Validation
         tr_avg_loss = 0.
