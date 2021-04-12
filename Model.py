@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-'''
-Last update: 21.03.03. KS.Kwon
-
-'''
-
 import tensorflow as tf
 from tensorflow import keras
 
