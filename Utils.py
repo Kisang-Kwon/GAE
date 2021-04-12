@@ -1,29 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-'''
-Last update: 20.12.15. by KS.Kwon
-
-[20.12.15.]
-- Removed Degree matrix in poc_load_data, lig_load_data.
-- Added poc_d_score in poc_load_data function which means centroid distance.
-
-[20.11.13.]
-- Changed input_list_parsing to return input list which also include the compound smiles 
-
-[20.10.21.]
-Assumption
- - pocket 1개짜리 test data 생성시, MinMax, Z-score normalization 방법 모두 분모를 0으로 만드는 문제 발생
- - 현재는 위의 문제 발생시 normalization 안되도록 구현되어있는데 이는 말이 안됨
-
-[20.10.20.]
-data normalization 기능 추가 
- - Min-max normalization
- - Standardization (Z-score normalization)
-
-[20.09.27.] 
-Autoencoder data loading function 변경 -> ff folder 내부 파일 읽어서 데이터 로딩 
-'''
-
 import os
 import sys
 import numpy as np
