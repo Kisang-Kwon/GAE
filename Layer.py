@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-'''
-Last update: 21.01.21. by KS.Kwon
-
-'''
-
 import tensorflow as tf
 import numpy as np
 
@@ -71,33 +64,25 @@ class GraphConv(layers.Layer):
     def call(self, inputs, training=False):
         M_features, M_adjacency, mask = inputs
 
-        ### To do: How to normalize the adjacency matrix
         #inv_deg = get_inv_diag_matrix(M_adjacency, self.batch_size, self.max_poc_node)
         #inv_deg = tf.convert_to_tensor(inv_deg)
 
         AX = tf.matmul(M_adjacency, M_features)
         hidden_feature = tf.matmul(AX, self.W_layer) + tf.expand_dims(self.b_layer, 0) 
 
-        if training:
-            hidden_feature = tf.nn.dropout(hidden_feature, self.dropout)
-
         activations = self.activation(hidden_feature) * tf.expand_dims(mask, axis=-1)
-
+        
+        if training:
+            activations = tf.nn.dropout(activations, self.dropout)
+            
         return activations
 
     def reconstruction(self, inputs, activation=tf.nn.leaky_relu, training=False):
         hidden_features, mask = inputs
-
-        ### To do: How to normalize the adjacency matrix
-        #inv_deg = get_inv_diag_matrix(M_adjacency, self.batch_size, self.max_poc_node)
-        #inv_deg = tf.convert_to_tensor(inv_deg)
         
         recon_hidden_features = tf.matmul(hidden_features, self.W_layer, transpose_b=True) # [max_poc_nodes, n_hidden]
         recon_output = recon_hidden_features + tf.expand_dims(self.b_recon, 0)  # 
 
-        if training:
-            recon_output = tf.nn.dropout(recon_output, self.dropout)
-
         recon_activations = self.activation(recon_output) * tf.expand_dims(mask, axis=-1)
-
+        
         return recon_activations
