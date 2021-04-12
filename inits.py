@@ -1,6 +1,3 @@
-'''
-Last update: 20.09.23. by KS.Kwon
-'''
 import tensorflow as tf
 import numpy as np
 
